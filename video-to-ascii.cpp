@@ -88,9 +88,9 @@ void playVideoAsASCIIFrames(vector<string>* ascii_frames, int* frame_duration)
 int main()
 {
     // Block console from any text (OpenCV prints some info...)
-    std::streambuf* cout_sbuf = std::cout.rdbuf(); // save original sbuf
-    std::ofstream fout("/dev/null");
-    std::cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
+    streambuf* cout_sbuf = std::cout.rdbuf(); // save original sbuf
+    ofstream fout("/dev/null");
+    cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
     //
 
     string video_path = "C:/my_video.mp4";
@@ -100,7 +100,7 @@ int main()
     vector<string> ascii_frames = getASCIIFramesFromVideo(&video_file); // Save all frames from video as vector with ascii strings
 
     // Unblock console
-    std::cout.rdbuf(cout_sbuf); // restore the original stream buffer
+    cout.rdbuf(cout_sbuf); // restore the original stream buffer
 
     playVideoAsASCIIFrames(&ascii_frames, &frame_duration); // Play video as ascii frames in console :)
 
