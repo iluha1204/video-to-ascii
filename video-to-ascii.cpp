@@ -95,7 +95,7 @@ int main()
 
     string video_path = "C:/my_video.mp4";
     VideoCapture video_file(video_path);
-    int frame_duration = 1000 / video_file.get(CAP_PROP_FPS);
+    int frame_duration = 1000 / video_file.get(CAP_PROP_FPS); // milliseconds
 
     vector<string> ascii_frames = getASCIIFramesFromVideo(&video_file); // Save all frames from video as vector with ascii strings
 
