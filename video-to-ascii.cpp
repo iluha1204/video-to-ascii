@@ -18,7 +18,7 @@ using namespace chrono;
 //const string ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._ ";
 const string ASCII_CHARS = "  ._-=+*!&#%$@";
 
-char getPixelasASCIIChar(int pixel_intensity)
+char getPixelAsASCIIChar(int pixel_intensity)
 {
     return ASCII_CHARS[pixel_intensity * ASCII_CHARS.length() / 256];
 }
