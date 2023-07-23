@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>﻿
 #include<vector>
 #include<thread>
 #include<chrono>
@@ -15,7 +15,8 @@ using namespace std;
 using namespace cv;
 using namespace chrono;
 
-const string ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._ ";
+//const string ASCII_CHARS = "Ñ@#W$9876543210?!abc;:+=-,._ ";
+const string ASCII_CHARS = "  ._-=+*!&#%$@";
 
 char getPixelasASCIIChar(int pixel_intensity)
 {
@@ -81,27 +82,34 @@ void playVideoAsASCIIFrames(vector<string>* ascii_frames, int* frame_duration)
     {
         clearConsole();
         cout << (*ascii_frames)[i];
-        std::this_thread::sleep_for(std::chrono::milliseconds(*frame_duration));
+        this_thread::sleep_for(chrono::milliseconds(*frame_duration));
     }
 }
 
 int main()
 {
-    // Block console from any text (OpenCV prints some info...)
+    string video_path = "C:/my_video.mp4";
+    VideoCapture video_file;
+
+    // Block console from any text
     streambuf* cout_sbuf = std::cout.rdbuf(); // save original sbuf
     ofstream fout("/dev/null");
     cout.rdbuf(fout.rdbuf()); // redirect 'cout' to a 'fout'
     //
 
-    string video_path = "C:/my_video.mp4";
-    VideoCapture video_file(video_path);
-    int frame_duration = 1000 / video_file.get(CAP_PROP_FPS); // milliseconds
-
-    vector<string> ascii_frames = getASCIIFramesFromVideo(&video_file); // Save all frames from video as vector with ascii strings
+    bool is_video_captured = video_file.open(video_path);
 
     // Unblock console
     cout.rdbuf(cout_sbuf); // restore the original stream buffer
 
+    if (!is_video_captured)
+    {
+        cout << "Video can not be opened!\n" << endl;
+        return 0;
+    }
+
+    int frame_duration = 1000 / video_file.get(CAP_PROP_FPS); // milliseconds
+    vector<string> ascii_frames = getASCIIFramesFromVideo(&video_file); // Save all frames from video as vector with ascii strings
     playVideoAsASCIIFrames(&ascii_frames, &frame_duration); // Play video as ascii frames in console :)
 
     return 0;
