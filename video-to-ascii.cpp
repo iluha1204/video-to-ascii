@@ -32,7 +32,7 @@ string getASCIIFrame(Mat* frame, int* output_width, int* output_height)
     string ascii_frame = "";
     for (int i = 0; i < *output_height; i++) {
         for (int j = 0; j < *output_width; j++) {
-            ascii_frame += getPixelasASCIIChar(frame_resized.at<uchar>(i, j));
+            ascii_frame += getPixelAsASCIIChar(frame_resized.at<uchar>(i, j));
         }
         ascii_frame += "\n";
     }
